@@ -253,3 +253,8 @@ class Device:
 			return 0
 
 		return count_response['count']
+	
+	async def alert(self):
+		state = await self._client.get_state('command.cgi?cmd=alert&oid={0}&ot={1}'.format(self._oid, self._ot))
+		if state is not None:
+			self._raw_result['data']['alerted'] = True
